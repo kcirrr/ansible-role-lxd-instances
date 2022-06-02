@@ -1,0 +1,22 @@
+---
+- name: Create LXD containers
+  community.general.lxd_container:
+    url: '{{ lxd_server_url }}'
+    project: '{{ item.project | default(omit) }}'
+    name: '{{ item.name }}'
+    type: '{{ item.type | default("container") }}'
+    state: '{{ item.state | default(omit) }}'
+    ignore_volatile_options: false
+    wait_for_ipv4_addresses: '{{ item.wait_for_ipv4_addresses | default(omit)}}'
+    source:
+      protocol: '{{ item.source_protocol | default("simplestreams") }}'
+      type: '{{ item.source_type | default("image") }}'
+      mode: '{{ item.source_mode | default("pull") }}'
+      server: '{{ item.source_server | default("https://images.linuxcontainers.org") }}'
+      alias: '{{ item.source_alias }}'
+    profiles: '{{ item.profiles | default(omit) }}'
+    timeout: '{{ item.timeout | default(600) }}'
+    config: '{{ item.config | default(omit) }}'
+    devices: '{{ item.devices | default(omit) }}'
+  with_items: '{{ lxd_containers }}'
+  when: lxd_containers is defined
