@@ -7,7 +7,7 @@
     type: '{{ item.type | default("container") }}'
     state: '{{ item.state | default(omit) }}'
     ignore_volatile_options: false
-    wait_for_ipv4_addresses: '{{ item.wait_for_ipv4_addresses | default(omit)}}'
+    wait_for_ipv4_addresses: '{{ item.wait_for_ipv4_addresses | default(omit) }}'
     source:
       protocol: '{{ item.source_protocol | default("simplestreams") }}'
       type: '{{ item.source_type | default("image") }}'
